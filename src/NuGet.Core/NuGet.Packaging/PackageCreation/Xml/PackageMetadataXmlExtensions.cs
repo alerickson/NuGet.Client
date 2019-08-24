@@ -24,7 +24,7 @@ namespace NuGet.Packaging.Xml
         private const string Dependencies = "dependencies";
         private const string Files = "files";
 
-        public static XElement ToXElement(this ManifestMetadata metadata, XNamespace ns)
+        public static XElement ToXElement(this ManifestMetadata metadata, XNamespace ns, bool generateLicenseUrl = true)
         {
             var elem = new XElement(ns + "metadata");
             if (metadata.MinClientVersionString != null)
@@ -54,6 +54,9 @@ namespace NuGet.Packaging.Xml
                     if (licenseElement != null)
                     {
                         elem.Add(licenseElement);
+                    }
+                    if (generateLicenseUrl) {
+                        licenseUrlToWrite = metadata.LicenseMetadata.LicenseUrl.OriginalString;
                     }
                 }
                 AddElementIfNotNull(elem, ns, "licenseUrl", licenseUrlToWrite);

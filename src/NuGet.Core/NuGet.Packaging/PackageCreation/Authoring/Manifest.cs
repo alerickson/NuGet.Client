@@ -54,9 +54,9 @@ namespace NuGet.Packaging
         /// Saves the current manifest to the specified stream.
         /// </summary>
         /// <param name="stream">The target stream.</param>
-        public void Save(Stream stream)
+        public void Save(Stream stream, bool generateLicenseUrl = true)
         {
-            Save(stream, minimumManifestVersion: 1);
+            Save(stream, minimumManifestVersion: 1, generateLicenseUrl: generateLicenseUrl);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace NuGet.Packaging
         /// </summary>
         /// <param name="stream">The target stream.</param>
         /// <param name="minimumManifestVersion">The minimum manifest version that this class must use when saving.</param>
-        public void Save(Stream stream, int minimumManifestVersion)
+        public void Save(Stream stream, int minimumManifestVersion, bool generateLicenseUrl = true)
         {
 
             Validate(this);
@@ -74,7 +74,7 @@ namespace NuGet.Packaging
 
             new XDocument(
                 new XElement(schemaNamespace + "package",
-                    Metadata.ToXElement(schemaNamespace),
+                    Metadata.ToXElement(schemaNamespace, generateLicenseUrl: generateLicenseUrl),
                     Files.Any() ?
                         new XElement(schemaNamespace + "files",
                             Files.Select(file => new XElement(schemaNamespace + "file",
