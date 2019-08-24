@@ -55,7 +55,6 @@ namespace NuGet.Packaging.Xml
                     {
                         elem.Add(licenseElement);
                     }
-                    licenseUrlToWrite = metadata.LicenseMetadata.LicenseUrl.OriginalString;
                 }
                 AddElementIfNotNull(elem, ns, "licenseUrl", licenseUrlToWrite);
             }
