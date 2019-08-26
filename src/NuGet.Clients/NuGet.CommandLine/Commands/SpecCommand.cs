@@ -114,7 +114,7 @@ namespace NuGet.CommandLine
                 {
                     using (var stream = new MemoryStream())
                     {
-                        manifest.Save(stream, generateLicenseUrl: false);
+                        manifest.Save(stream, generateBackwardsCompatible: false);
                         stream.Seek(0, SeekOrigin.Begin);
                         string content = stream.ReadToEnd();
                         // We have to replace it here because we can't have
